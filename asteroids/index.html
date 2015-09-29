@@ -19,6 +19,13 @@
       var ctx = canvas.getContext("2d");
       canvas.width = Asteroids.Game.DIM_X;
       canvas.height = Asteroids.Game.DIM_Y;
+      var background = new Image();;
+
+      background.src = "lib/space.jpg"
+      background.onload = function() {
+        ctx.drawImage(background,0,0)
+      }
+
       new Asteroids.GameView(ctx).start();
     </script>
   </body>
