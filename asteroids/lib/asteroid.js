@@ -7,15 +7,14 @@
   var Asteroid = Asteroids.Asteroid = function(options) {
     Asteroids.MovingObject.call(this, {
       color: Asteroid.COLOR,
-      radius: Asteroid.RADIUS,
       pos: options["pos"],
-      vel: Asteroids.Util.randomVector(Asteroid.MAG),
-      game: options["game"]
+      vel: Asteroids.Util.randomVector((Asteroid.MAX_MAG * Math.random()) + 1),
+      game: options["game"],
+      radius: options["radius"]
     });
   };
   Asteroid.COLOR = "#909090";
-  Asteroid.RADIUS = 30;
-  Asteroid.MAG = 5;
+  Asteroid.MAX_MAG = 4.8;
   Asteroids.Util.inherits(Asteroids.Asteroid, Asteroids.MovingObject);
 
   Asteroid.prototype.collideWith = function(otherObject) {

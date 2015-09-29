@@ -6,6 +6,7 @@
   </head>
   <body>
     <canvas id="game-canvas"></canvas>
+
     <script type="text/javascript" src="lib/utils.js"></script>
     <script type="text/javascript" src="lib/movingObject.js"></script>
     <script type="text/javascript" src="lib/asteroid.js"></script>
@@ -19,13 +20,6 @@
       var ctx = canvas.getContext("2d");
       canvas.width = Asteroids.Game.DIM_X;
       canvas.height = Asteroids.Game.DIM_Y;
-      var background = new Image();;
-
-      background.src = "lib/space.jpg"
-      background.onload = function() {
-        ctx.drawImage(background,0,0)
-      }
-
       new Asteroids.GameView(ctx).start();
     </script>
   </body>

@@ -12,10 +12,12 @@
       pos: options["game"].randomPosition(),
       game: options["game"]
     });
+    this.line = "0";
   };
   Ship.COLOR = "#FF6699";
   Ship.RADIUS = 10;
   Ship.MAX_VEL = 2;
+  Ship.VEL_MOD = .8;
   Asteroids.Util.inherits(Ship, Asteroids.MovingObject);
 
   Ship.prototype.relocate = function() {
@@ -24,8 +26,8 @@
   };
 
   Ship.prototype.power = function(impulse) {
-    this.vel[0] += impulse[0];
-    this.vel[1] += impulse[1];
+    this.vel[0] += (impulse[0] * Ship.VEL_MOD);
+    this.vel[1] += (impulse[1] * Ship.VEL_MOD);
   };
 
   Ship.prototype.fireBullet = function() {

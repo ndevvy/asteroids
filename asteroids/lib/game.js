@@ -13,13 +13,17 @@
 
   Game.DIM_X = window.innerWidth - 50;
   Game.DIM_Y = window.innerHeight - 50;
-  Game.NUM_ASTEROIDS = 5;
+  Game.NUM_ASTEROIDS = 15;
+  Game.ASTEROID_MAX_RAD = 25;
+  Game.MAX_BULLETS = 5;
 
   Game.prototype.addAsteroids = function() {
     // randomly place asteroids within dimensions
     this.asteroids = [];
     for (var i = 0; i < Game.NUM_ASTEROIDS; i++) {
-      this.asteroids.push(new Asteroids.Asteroid({pos: this.randomPosition(), game: this}));
+      this.asteroids.push(new Asteroids.Asteroid({pos: this.randomPosition(),
+        game: this,
+        radius: (Game.ASTEROID_MAX_RAD * Math.random()) + 10}));
     }
 
   };
@@ -28,8 +32,11 @@
     return [Math.random() * Game.DIM_X, Math.random() * Game.DIM_Y];
   };
 
+  Game.BACKGROUND = new Image();
+  Game.BACKGROUND.src = "lib/space.jpg";
+
   Game.prototype.draw = function(ctx) {
-    ctx.clearRect(0,0, Game.DIM_X, Game.DIM_Y);
+    ctx.drawImage(Game.BACKGROUND, 0,0);
     for(var i = 0; i < this.allObjects().length; i++){
       this.allObjects()[i].draw(ctx);
     }
@@ -80,7 +87,7 @@
     if(object instanceof Asteroids.Asteroid){
       this.asteroids.push(object);
     }
-    else if(object instanceof Asteroids.Bullet){
+    else if(object instanceof Asteroids.Bullet && this.bullets.length < Game.MAX_BULLETS){
       this.bullets.push(object);
     }
   };

@@ -11,11 +11,14 @@
     this.color = options["color"];
     this.game = options["game"];
     this.isWrappable = true;
+    this.line = 1;
   };
 
   MovingObject.prototype.draw = function(ctx){
     ctx.fillStyle = this.color;
     ctx.beginPath();
+    ctx.lineWidth= this.line;
+    ctx.strokeStyle="black";
 
     ctx.arc(
       this.pos[0],
@@ -27,6 +30,9 @@
     );
 
     ctx.fill();
+    if (this.line != "0") {
+      ctx.stroke();
+    }
   };
 
   MovingObject.prototype.move = function() {

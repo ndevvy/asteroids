@@ -30,7 +30,7 @@
     key('right', function(){
       that.game.ship.power([1,0]);
     });
-    key('a', function(){
+    key('space', function(){
       that.game.ship.fireBullet();
     });
   };

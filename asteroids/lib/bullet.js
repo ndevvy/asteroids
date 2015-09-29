@@ -13,6 +13,7 @@
       game: options["game"],
     });
       this.isWrappable = false;
+      this.line = "0";
   };
   Bullet.RADIUS = 5;
   Bullet.COLOR = "#FF0099";
