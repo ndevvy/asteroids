@@ -9,13 +9,23 @@
     this.ctx = ctx;
   };
 
+  GameView.prototype.stop = function() { clearInterval(setIntID) };
+
   GameView.prototype.start = function (){
     var that = this;
-    setInterval(function() {
+    setIntID = setInterval(function() {
       that.game.step();
       that.game.draw(that.ctx);
-      that.game.ship.reduceVelocity();
+      if (that.game.checkEndGame() === "lost"){
+        that.stop();
+        that.game.endGame("lost", that.ctx);
+      } else if (that.game.checkEndGame() === "won"){
+        that.stop();
+        that.game.endGame("won", that.ctx);
+      }
     }, 20);
+
+    // var stop = function() { clearInterval(setIntID) };
 
     // define short of 'a'
     key('up', function(){

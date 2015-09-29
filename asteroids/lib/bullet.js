@@ -17,7 +17,7 @@
   };
   Bullet.RADIUS = 5;
   Bullet.COLOR = "#FF0099";
-  Bullet.SPEED = 1.8;
+  Bullet.SPEED = 5.4;
   Asteroids.Util.inherits(Bullet, Asteroids.MovingObject);
 
 

@@ -8,13 +8,12 @@
     Asteroids.MovingObject.call(this, {
       color: Asteroid.randomgrey(),
       pos: options["pos"],
-      vel: Asteroids.Util.randomVector((Asteroid.MAX_MAG * Math.random()) + 1),
+      vel: Asteroids.Util.randomVector((Asteroid.MAX_MAG * Math.random()) + .2),
       game: options["game"],
       radius: options["radius"]
     });
   };
-  // Asteroid.COLOR = "rgb(80,80,80)";
-  Asteroid.MAX_MAG = 4.8;
+  Asteroid.MAX_MAG = 4.3;
   Asteroids.Util.inherits(Asteroids.Asteroid, Asteroids.MovingObject);
 
   Asteroid.randomgrey = function(){
@@ -25,6 +24,7 @@
   Asteroid.prototype.collideWith = function(otherObject) {
     if (otherObject instanceof Asteroids.Ship) {
       otherObject.relocate();
+      this.game.loseLife();
     }
 
     if(otherObject instanceof Asteroids.Bullet){

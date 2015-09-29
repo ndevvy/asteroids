@@ -9,13 +9,17 @@
     this.addAsteroids();
     this.ship = new Asteroids.Ship({game: this});
     this.bullets = [];
+    this.numLives = 5;
   };
 
   Game.DIM_X = window.innerWidth - 50;
   Game.DIM_Y = window.innerHeight - 50;
   Game.NUM_ASTEROIDS = 15;
-  Game.ASTEROID_MAX_RAD = 25;
+  Game.ASTEROID_MAX_RAD = 21;
   Game.MAX_BULLETS = 5;
+
+
+  Game.prototype.loseLife = function() { this.numLives -= 1; }
 
   Game.prototype.addAsteroids = function() {
     // randomly place asteroids within dimensions
@@ -23,7 +27,7 @@
     for (var i = 0; i < Game.NUM_ASTEROIDS; i++) {
       this.asteroids.push(new Asteroids.Asteroid({pos: this.randomPosition(),
         game: this,
-        radius: (Game.ASTEROID_MAX_RAD * Math.random()) + 10}));
+        radius: (Game.ASTEROID_MAX_RAD * Math.random()) + 14}));
     }
 
   };
@@ -34,13 +38,24 @@
 
   Game.BACKGROUND = new Image();
   Game.BACKGROUND.src = "lib/space.jpg";
+  Game.SHIP = new Image();
+  Game.SHIP.src = "lib/ship.png";
 
   Game.prototype.draw = function(ctx) {
     ctx.drawImage(Game.BACKGROUND, 0,0);
     for(var i = 0; i < this.allObjects().length; i++){
       this.allObjects()[i].draw(ctx);
     }
+    for (var i = 0; i < this.numLives; i++) {
+      ctx.drawImage(Game.SHIP, (i * 45), 0);
+    }
   };
+
+  // Game.prototype.drawLives = function(ctx) {
+  //   for (var i = 0; i < Game.numLives; i++) {
+  //     ctx.drawImage(this.ship.IMG, (i * 45), 0);
+  //   }
+  // };
 
   Game.prototype.moveObjects = function(){
     for(var i = 0; i < this.allObjects().length; i++){
@@ -71,7 +86,29 @@
   Game.prototype.step = function() {
     this.moveObjects();
     this.checkCollisions();
-    // this.ship.reduceVelocity();
+    this.ship.reduceVelocity();
+  };
+
+  Game.prototype.checkEndGame = function() {
+    if (this.numLives < 0) {
+      return "lost";
+    }
+    if (this.asteroids.length === 0) {
+      return "won";
+    }
+  }
+
+  Game.prototype.endGame = function(outcome, ctx) {
+    ctx.font = "100px Arial";
+
+    if (outcome === "lost"){
+      ctx.fillStyle = "red";
+      ctx.fillText("you lose!", Game.DIM_X / 2, Game.DIM_Y / 2)
+    }
+    else {
+      ctx.fillStyle = "#FF0099"
+      ctx.fillText("you win!!!", Game.DIM_X / 2, Game.DIM_Y / 2)
+    }
   };
 
   Game.prototype.remove = function(object){

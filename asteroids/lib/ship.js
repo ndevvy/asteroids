@@ -20,7 +20,7 @@
   Ship.COLOR = "#FF6699";
   Ship.RADIUS = 16;
   Ship.MAX_VEL = 2;
-  Ship.VEL_MOD = .8;
+  Ship.VEL_MOD = .9;
   Ship.IMG = new Image();
   Ship.IMG.src = "lib/ship.png";
   Asteroids.Util.inherits(Ship, Asteroids.MovingObject);
@@ -44,13 +44,12 @@
       pos: this.pos,
       vel: [this.vel[0] * Asteroids.Bullet.SPEED, this.vel[1] * Asteroids.Bullet.SPEED],
       game: this.game});
-    debugger;
     this.game.addObject(bullet);
   };
 
   Ship.prototype.reduceVelocity = function() {
-    this.vel[0] *= .99;
-    this.vel[1] *= .99;
+    this.vel[0] *= .997;
+    this.vel[1] *= .997;
   };
 
 })();
