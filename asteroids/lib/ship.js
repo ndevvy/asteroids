@@ -13,12 +13,21 @@
       game: options["game"]
     });
     this.line = "0";
+    // this.draw = function(ctx) { ctx.drawImage(Ship.IMG, this.pos[0], this.pos[1]); };
   };
+
+
   Ship.COLOR = "#FF6699";
-  Ship.RADIUS = 10;
+  Ship.RADIUS = 16;
   Ship.MAX_VEL = 2;
   Ship.VEL_MOD = .8;
+  Ship.IMG = new Image();
+  Ship.IMG.src = "lib/ship.png";
   Asteroids.Util.inherits(Ship, Asteroids.MovingObject);
+
+  Ship.prototype.draw = function(ctx) {
+    ctx.drawImage(Ship.IMG, this.pos[0], this.pos[1]);
+  };
 
   Ship.prototype.relocate = function() {
     this.pos = this.game.randomPosition();
