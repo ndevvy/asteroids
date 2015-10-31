@@ -29,16 +29,17 @@
 
     // define short of 'a'
     key('up', function(){
-      that.game.ship.power([0,-1]);
+      that.game.ship.power(1);
     });
     key('down', function(){
-      that.game.ship.power([0,1]);
+      that.game.ship.power(-1);
     });
     key('left', function(){
-      that.game.ship.power([-1,0]);
+      that.game.ship.rotate(-1);
+      console.log(that.game.ship.rotation);
     });
     key('right', function(){
-      that.game.ship.power([1,0]);
+      that.game.ship.rotate(1);
     });
     key('space', function(){
       that.game.ship.fireBullet();

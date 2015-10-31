@@ -10,14 +10,15 @@
       radius: Ship.RADIUS,
       vel: [0,0],
       pos: options["game"].randomPosition(),
-      game: options["game"]
+      game: options["game"],
     });
     this.line = "0";
+    this.rotation = 0;
+    this.direction = [0,-1];
     // this.draw = function(ctx) { ctx.drawImage(Ship.IMG, this.pos[0], this.pos[1]); };
   };
 
-
-  Ship.COLOR = "#FF6699";
+  // Ship.COLOR = "#FF6699";
   Ship.RADIUS = 16;
   Ship.MAX_VEL = 2;
   Ship.VEL_MOD = .9;
@@ -26,7 +27,11 @@
   Asteroids.Util.inherits(Ship, Asteroids.MovingObject);
 
   Ship.prototype.draw = function(ctx) {
-    ctx.drawImage(Ship.IMG, this.pos[0], this.pos[1]);
+    ctx.save();
+    ctx.translate(this.pos[0], this.pos[1]);
+    ctx.rotate(this.rotation);
+    ctx.drawImage(Ship.IMG, -(Ship.IMG.width/2), -(Ship.IMG.height/2));
+    ctx.restore();
   };
 
   Ship.prototype.relocate = function() {
@@ -35,14 +40,36 @@
   };
 
   Ship.prototype.power = function(impulse) {
-    this.vel[0] += (impulse[0] * Ship.VEL_MOD);
-    this.vel[1] += (impulse[1] * Ship.VEL_MOD);
+    var rad = this.rotation;
+    var vectorx = Math.cos(rad) * impulse;
+    var vectory = Math.sin(rad) * impulse;
+    this.vel[0] += (vectorx * Ship.VEL_MOD);
+    this.vel[1] += (vectory * Ship.VEL_MOD);
+  };
+
+
+  Ship.prototype.rotate = function(dir) {
+    this.rotation += dir * 0.5;
+    this.wrapRotate();
+  };
+
+  Ship.prototype.wrapRotate = function() {
+    if (this.rotation > 2 * Math.PI) {
+      this.rotation = 0;
+    }
+
+    if (this.rotation < 0) {
+      this.rotation = 2 * Math.PI;
+    }
   };
 
   Ship.prototype.fireBullet = function() {
+    var rad = this.rotation + 90;
+    var vectorx = Math.cos(rad);
+    var vectory = Math.sin(rad);
     var bullet = new Asteroids.Bullet({
       pos: this.pos,
-      vel: [this.vel[0] * Asteroids.Bullet.SPEED, this.vel[1] * Asteroids.Bullet.SPEED],
+      vel: [(this.vel[0] + vectorx) * Asteroids.Bullet.SPEED, (this.vel[1] + vectory) * Asteroids.Bullet.SPEED],
       game: this.game});
     this.game.addObject(bullet);
   };

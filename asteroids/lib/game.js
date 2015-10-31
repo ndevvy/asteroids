@@ -6,10 +6,13 @@
 
 
   var Game = Asteroids.Game = function Game(){
-    this.addAsteroids();
+    // this.addAsteroids();
     this.ship = new Asteroids.Ship({game: this});
     this.bullets = [];
     this.numLives = 5;
+    this.level = 0;
+    this.score = 0;
+    this.asteroids = [];
   };
 
   Game.DIM_X = window.innerWidth - 50;
@@ -23,7 +26,7 @@
 
   Game.prototype.addAsteroids = function() {
     // randomly place asteroids within dimensions
-    this.asteroids = [];
+
     for (var i = 0; i < Game.NUM_ASTEROIDS; i++) {
       this.asteroids.push(new Asteroids.Asteroid({pos: this.randomPosition(),
         game: this,
@@ -93,7 +96,7 @@
     if (this.numLives < 0) {
       return "lost";
     }
-    if (this.asteroids.length === 0) {
+    if (this.asteroids.length === 1) {
       return "won";
     }
   }
@@ -147,5 +150,15 @@
       }
     }
   };
+
+  Game.prototype.levelUp = function(object){
+    if (this.asteroids.length < 2);{
+      this.level ++;
+      // asteroids will be faster
+      Asteroid.MAX_MAG ++;
+      this.addAsteroids();
+    }
+  };
+
 
 })();
