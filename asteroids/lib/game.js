@@ -6,23 +6,27 @@
 
 
   var Game = Asteroids.Game = function Game(){
-    // this.addAsteroids();
     this.ship = new Asteroids.Ship({game: this});
     this.bullets = [];
     this.numLives = 5;
-    this.level = 0;
+    this.level = 1;
     this.score = 0;
     this.asteroids = [];
+    this.addAsteroids();
   };
 
   Game.DIM_X = window.innerWidth - 50;
   Game.DIM_Y = window.innerHeight - 50;
   Game.NUM_ASTEROIDS = 15;
   Game.ASTEROID_MAX_RAD = 21;
-  Game.MAX_BULLETS = 5;
+  Game.MAX_BULLETS = 6;
 
 
-  Game.prototype.loseLife = function() { this.numLives -= 1; }
+  Game.prototype.loseLife = function() { this.numLives -= 1; };
+
+  Game.prototype.drawSore = function() {
+
+  };
 
   Game.prototype.addAsteroids = function() {
     // randomly place asteroids within dimensions
@@ -49,9 +53,12 @@
     for(var i = 0; i < this.allObjects().length; i++){
       this.allObjects()[i].draw(ctx);
     }
-    for (var i = 0; i < this.numLives; i++) {
-      ctx.drawImage(Game.SHIP, (i * 45), 0);
+    for (var j = 0; j < this.numLives; j++) {
+      ctx.drawImage(Game.SHIP, (j * 45), 0);
     }
+    ctx.font = "24px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText(Asteroids.Util.padScore(this.score), Game.DIM_X - 100, 20);
   };
 
   // Game.prototype.drawLives = function(ctx) {
@@ -59,6 +66,7 @@
   //     ctx.drawImage(this.ship.IMG, (i * 45), 0);
   //   }
   // };
+
 
   Game.prototype.moveObjects = function(){
     for(var i = 0; i < this.allObjects().length; i++){
@@ -69,6 +77,11 @@
 
   Game.prototype.wrap = function(pos) {
     return [(pos[0] + Game.DIM_X) % Game.DIM_X, (pos[1] + Game.DIM_Y) % Game.DIM_Y];
+  };
+
+  Game.prototype.addScore = function() {
+    this.score += (this.level * 10);
+    console.log(this.score);
   };
 
   Game.prototype.checkCollisions = function(){
@@ -96,21 +109,18 @@
     if (this.numLives < 0) {
       return "lost";
     }
-    if (this.asteroids.length === 1) {
-      return "won";
-    }
-  }
+  };
 
   Game.prototype.endGame = function(outcome, ctx) {
     ctx.font = "100px Arial";
 
     if (outcome === "lost"){
       ctx.fillStyle = "red";
-      ctx.fillText("you lose!", Game.DIM_X / 2, Game.DIM_Y / 2)
+      ctx.fillText("you lose!", Game.DIM_X / 2, Game.DIM_Y / 2);
     }
     else {
-      ctx.fillStyle = "#FF0099"
-      ctx.fillText("you win!!!", Game.DIM_X / 2, Game.DIM_Y / 2)
+      ctx.fillStyle = "#FF0099";
+      ctx.fillText("you win!!!", Game.DIM_X / 2, Game.DIM_Y / 2);
     }
   };
 
@@ -151,11 +161,11 @@
     }
   };
 
-  Game.prototype.levelUp = function(object){
-    if (this.asteroids.length < 2);{
+  Game.prototype.checkLevelUp = function(object){
+    if (this.asteroids.length < 3 && this.asteroids.length > 0) {
       this.level ++;
       // asteroids will be faster
-      Asteroid.MAX_MAG ++;
+      Asteroids.Asteroid.MAX_MAG += 0.75;
       this.addAsteroids();
     }
   };

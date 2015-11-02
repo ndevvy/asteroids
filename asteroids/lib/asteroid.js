@@ -29,6 +29,8 @@
 
     if(otherObject instanceof Asteroids.Bullet){
       this.game.removeObject(otherObject);
+      this.game.addScore();
+      this.game.checkLevelUp();
       this.game.removeObject(this);
     }
   };

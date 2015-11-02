@@ -21,10 +21,11 @@
     return Math.sqrt(Math.pow(pos2[0] - pos1[0], 2) + Math.pow(pos2[1] - pos1[1], 2));
   };
 
-
-  Asteroids.Util.rotateVec = function(vector, theta){
-    var newX = vector[0] * Math.cos(theta) - vector[1] * Math.sin(theta);
-    var newY = vector[0] * Math.sin(theta) + vector[1] * Math.cos(theta);
+  Asteroids.Util.padScore = function(score) {
+    var padScore = score;
+    while (("" + padScore).length < 7) {
+      padScore = "0" + padScore;
+    }
+    return padScore;
   };
-
 })();
