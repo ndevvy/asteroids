@@ -9,22 +9,10 @@
   <body>
     <canvas id="game-canvas"></canvas>
     <!-- Modal HTML embedded directly into document -->
-   <div id="start" style="display:none;">
-     <h1>Welcome to Asteroids!</h1>
-     <ul>
-       <li> Use left and right arrow keys to rotate </li>
-       <li> Power your ship by pressing up.  You can go backwards by pressing down.</li>
-       <li> Fire bullets using the spacebar </li>
-       <li> Have fun!
-     </ul>
-     <button type="button" name="button" onclick="startGame()" rel="modal:close">start!</button>
+   <div id="modal" style="display:none;">
+
    </div>
 
-   <div id="end" style="display:none;">
-     <h1>Game Over</h1>
-
-     <button type="button" name="button" onclick="startGame()" rel="modal:close">play again!</button>
-   </div>
 
     <script type="text/javascript" src="vendor/jquery.min.js"></script>
     <script type="text/javascript" src="vendor/jquery.modal.js"></script>
@@ -38,6 +26,9 @@
     <script type="text/javascript" src="lib/game.js"></script>
     <script type="text/javascript" src="lib/ship.js"></script>
     <script type="text/javascript">
+      $.modal.close();
+      $("#modal").html(startModalContent);
+      $("#modal").modal();
       var canvas = document.getElementById("game-canvas");
       var ctx = canvas.getContext("2d");
       canvas.width = Asteroids.Game.DIM_X;
