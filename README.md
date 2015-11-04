@@ -41,9 +41,9 @@ Ship.prototype.draw = function(ctx) {
 ## To do / forthcoming
 - [x] Add levels/infinite play
 - [x] Add score
-- [ ] Splash screen with instructions and start button
+- [x] Splash screen with instructions and start button
 - [ ] Replay button
-- [ ] Local high score
+- [x] Local high score
 - [ ] Make asteroids break apart
 - [ ] Make asteroids different shapes
 - [ ] Power-ups / extra lives
