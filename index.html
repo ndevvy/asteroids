@@ -2,12 +2,33 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="./asteroids.css">
+    <link rel="stylesheet" type="text/css" href="./vendor/jquery.modal.css">
     <meta charset="utf-8">
     <title>asteroids.js</title>
   </head>
   <body>
     <canvas id="game-canvas"></canvas>
+    <!-- Modal HTML embedded directly into document -->
+   <div id="start" style="display:none;">
+     <h1>Welcome to Asteroids!</h1>
+     <ul>
+       <li> Use left and right arrow keys to rotate </li>
+       <li> Power your ship by pressing up.  You can go backwards by pressing down.</li>
+       <li> Fire bullets using the spacebar </li>
+       <li> Have fun!
+     </ul>
+     <button type="button" name="button" onclick="startGame()" rel="modal:close">start!</button>
+   </div>
 
+   <div id="end" style="display:none;">
+     <h1>Game Over</h1>
+
+     <button type="button" name="button" onclick="startGame()" rel="modal:close">play again!</button>
+   </div>
+
+    <script type="text/javascript" src="vendor/jquery.min.js"></script>
+    <script type="text/javascript" src="vendor/jquery.modal.js"></script>
+    <script type="text/javascript" src="./modal.js"></script>
     <script type="text/javascript" src="lib/utils.js"></script>
     <script type="text/javascript" src="lib/movingObject.js"></script>
     <script type="text/javascript" src="lib/asteroid.js"></script>
@@ -21,7 +42,12 @@
       var ctx = canvas.getContext("2d");
       canvas.width = Asteroids.Game.DIM_X;
       canvas.height = Asteroids.Game.DIM_Y;
-      new Asteroids.GameView(ctx).start();
+      var game = new Asteroids.GameView(ctx)
+      game.drawCanvas();
+      var startGame = function() {
+        $.modal.close();
+        game.start();
+      };
     </script>
   </body>
 </html>

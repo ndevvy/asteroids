@@ -2,3 +2,7 @@
     font-family: 'Chargen';
     src: url('./chargen.ttf');
 }
+
+#game-canvas {
+  background-image: url('./lib/space.jpg');
+}
