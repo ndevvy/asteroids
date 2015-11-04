@@ -4,7 +4,7 @@
 Asteroids written in Javascript and rendered on the HTML5 canvas.  Play it [here](http://ndevvy.github.io/asteroids)!
 
 ## Code highlights / notes
-* **Class Inheritance**: I wrote an `inherits` function using the surrogate method to handle prototypal class inheritance. The `Surrogate` lets temporarily assign the `ParentClass` prototype which can then be passed on to the `ChildClass`. This ensures that the `ChildClass`'s methods don't get inherited in the wrong direction by the `ParentClass`.
+* **Class Inheritance**: I wrote an `inherits` function using the surrogate technique to handle prototypal class inheritance. The `Surrogate` lets us temporarily assign the `ParentClass` prototype which can then be passed on to the `ChildClass`. This ensures that the `ChildClass`'s methods don't get inherited in the wrong direction by the `ParentClass`.
 
 ````javascript
 Asteroids.Util.inherits = function(ChildClass, ParentClass) {
@@ -25,7 +25,7 @@ Ship.prototype.power = function(impulse) {
 };
 ````
 
-* Drawing **rotated images** on the Canvas:
+* **Rotation**:  Drawing rotated images on the Canvas requires moving the context origin to the position of the image, then rotating the context.  I draw the image at half the ship graphic's width and height so that the rotation is from the center of the ship image.  Once the image is drawn, the original rotation of the context is restored. [This](http://creativejs.com/2012/01/day-10-drawing-rotated-images-into-canvas/) blog post has more detail.
 
 ````javascript
 Ship.prototype.draw = function(ctx) {
