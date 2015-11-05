@@ -6,3 +6,27 @@
 #game-canvas {
   background-image: url('./lib/space.jpg');
 }
+
+#modal {
+  background-color: #5A6292;
+  color: white;
+  font-family: 'Chargen';
+  border-radius: 4px;
+  text-align: center;
+}
+
+#modal > ul {
+  text-align: left;
+}
+
+#modal > button {
+  color: black;
+  width: 85px;
+  font-family: 'Chargen';
+  margin: 0 auto;
+
+}
+
+button.asteroids-button {
+
+}

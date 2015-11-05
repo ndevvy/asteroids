@@ -9,9 +9,7 @@
   <body>
     <canvas id="game-canvas"></canvas>
     <!-- Modal HTML embedded directly into document -->
-   <div id="modal" style="display:none;">
-
-   </div>
+   <div id="modal" style="display:none;"> </div>
 
 
     <script type="text/javascript" src="vendor/jquery.min.js"></script>
@@ -26,19 +24,11 @@
     <script type="text/javascript" src="lib/game.js"></script>
     <script type="text/javascript" src="lib/ship.js"></script>
     <script type="text/javascript">
-      $.modal.close();
-      $("#modal").html(startModalContent);
-      $("#modal").modal();
       var canvas = document.getElementById("game-canvas");
       var ctx = canvas.getContext("2d");
-      canvas.width = Asteroids.Game.DIM_X;
-      canvas.height = Asteroids.Game.DIM_Y;
-      var game = new Asteroids.GameView(ctx)
-      game.drawCanvas();
-      var startGame = function() {
-        $.modal.close();
-        game.start();
-      };
+      Asteroids.bootUp();
+      $("#modal").html(startModalContent);
+      $("#modal").modal(modalOptions);
     </script>
   </body>
 </html>
