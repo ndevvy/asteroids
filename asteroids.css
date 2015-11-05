@@ -9,6 +9,7 @@
 
 #modal {
   background-color: #5A6292;
+  font-size: 18px;
   color: white;
   font-family: 'Chargen';
   border-radius: 4px;
@@ -21,10 +22,12 @@
 
 #modal > button {
   color: black;
-  width: 85px;
+  width: 100px;
+  height: 35px;
+  font-size: 20px;
+  border-radius: 4px;
+  background-color: #F9FEF7;
   font-family: 'Chargen';
-  margin: 0 auto;
-
 }
 
 button.asteroids-button {
