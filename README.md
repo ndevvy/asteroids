@@ -37,17 +37,3 @@ Ship.prototype.draw = function(ctx) {
   ctx.restore();
 };
 ````
-
-## To do / forthcoming
-- [x] Add levels/infinite play
-- [x] Add score
-- [x] Splash screen with instructions and start button
-- [x] Replay button
-- [x] Local high score
-- [ ] Make asteroids break apart
-- [ ] Make asteroids different shapes
-- [ ] Explosion sprite
-- [ ] Power-ups / extra lives
-- [ ] Make asteroids rotate as they move
-- [ ] Sound effects / music
-- [ ] Run on Rails app and persist high scores
